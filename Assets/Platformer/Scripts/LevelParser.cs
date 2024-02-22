@@ -5,11 +5,14 @@ using UnityEngine;
 public class LevelParser : MonoBehaviour
 {
     public string filename;
+    public Transform environmentRoot;
+
+    [Header("Block Prefab")]
     public GameObject rockPrefab;
     public GameObject brickPrefab;
     public GameObject questionBoxPrefab;
     public GameObject stonePrefab;
-    public Transform environmentRoot;
+    
 
     // --------------------------------------------------------------------------
     void Start()
@@ -45,22 +48,34 @@ public class LevelParser : MonoBehaviour
 
             sr.Close();
         }
-
+            int row = 0;
         // Go through the rows from bottom to top
         while (levelRows.Count > 0)
         {
             string currentLine = levelRows.Pop();
 
             char[] letters = currentLine.ToCharArray();
-            for (int column = 0; column < letters.Length; column++)
+            for (int col = 0; col < letters.Length; col++)
             {
-                var letter = letters[column];
+                var letter  = letters[col];
                 // Todo - Instantiate a new GameObject that matches the type specified by letter
                 // Todo - Position the new GameObject at the appropriate location by using row and column
                 // Todo - Parent the new GameObject under levelRoot
-                column++;
+                if(letter == 'x')
+                {
+                Vector3 newPos = new Vector3(col,row,0f);
+                GameObject newObj = Instantiate(rockPrefab, newPos, Quaternion.identity, environmentRoot);
+                Transform newTransform = newObj.transform;
+                newTransform.position = newPos;
+
+                }
+              
+
+               
             }
+             row++;
         }
+        
     }
 
     // --------------------------------------------------------------------------
