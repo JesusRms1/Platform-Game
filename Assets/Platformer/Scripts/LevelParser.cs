@@ -69,7 +69,13 @@ public class LevelParser : MonoBehaviour
                 newTransform.position = newPos;
 
                 }
-              
+              else if (letter == 'y')
+                {
+                    Vector3 newPos = new Vector3(col, row, 0f);
+                    GameObject newObj = Instantiate(questionBoxPrefab, newPos, Quaternion.identity, environmentRoot);
+                    Transform newTransform = newObj.transform;
+                    newTransform.position = newPos;
+                }
 
                
             }
